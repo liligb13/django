@@ -1,0 +1,30 @@
+# Created by https://www.gitignore.io/api/python, vagrant [cite: 176]
+# Edit at https://www.gitignore.io/?templates=python, vagrant [cite: 177]
+
+## Personal directories [cite: 178]
+### Python ### [cite: 179]
+# Byte-compiled / optimized / DLL files [cite: 180]
+__pycache__/ [cite: 183]
+*.py[cod] [cite: 184]
+*$py.class [cite: 185]
+# C extensions [cite: 186]
+*.so [cite: 187]
+# Distribution / packaging [cite: 188]
+.Python [cite: 189]
+build/ [cite: 190]
+# ... (Continúa la lista de la página 10 del manual) ...
+# ...
+# ...
+# Django stuff: [cite: 232]
+*.log [cite: 233]
+local_settings.py [cite: 234]
+db.sqlite3 # Uncomment if you want to ignore the default SQLite database file [cite: 235]
+# ... (Continúa hasta el final de la página 12)
+# Environments [cite: 254]
+env [cite: 255]
+.venv [cite: 256]
+venv/ [cite: 259]
+ENV/ [cite: 259]
+# ...
+# ...
+# End of https://www.gitignore.io/api/python, vagrant [cite: 281]
