@@ -58,8 +58,98 @@
         </div>
 
         <div class="col-md-10 p-4">
-            <h2 class="mb-4">Monitor de Sensores</h2>
+            <h2 class="mb-4">Monitor de sensores </h2>
 
             <div class="row" id="contenedor-graficas">
                 <div class="col-12 text-center mt-5">
-                    <div
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-2">Conectando con la base de datos</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<script>
+    const URL_SENSORES = '/rest/sensores/';
+    const URL_MEDICIONES = '/rest/mediciones/';
+
+    async function cargarDashboard() {
+        try {
+            const [resSensores, resMediciones] = await Promise.all([
+                fetch(URL_SENSORES),
+                fetch(URL_MEDICIONES)
+            ]);
+
+            const sensores = await resSensores.json();
+            const mediciones = await resMediciones.json();
+            
+            const contenedor = document.getElementById('contenedor-graficas');
+            contenedor.innerHTML = ''; 
+
+            if (sensores.length === 0) {
+                contenedor.innerHTML = '<div class="alert alert-warning">No hay sensores registrados. Ve al Admin y crea uno.</div>';
+                return;
+            }
+            sensores.forEach((sensor, index) => {
+                const medicionesDelSensor = mediciones.filter(m => m.sensor == sensor.id || (m.sensor.toString().includes(sensor.id)));
+                const ultimaMedicion = medicionesDelSensor.pop(); 
+                const valor = ultimaMedicion ? ultimaMedicion.valor : 0;
+                const divId = `chart-${index}`;
+                const colorGrafica = index % 2 === 0 ? '#3b82f6' : '#ef4444'; 
+                const htmlTarjeta = `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card-dashboard">
+                            <h5 class="card-title">${sensor.nombre}</h5>
+                            <p class="sensor-serial">${sensor.serial}</p>
+                            
+                            <div id="${divId}"></div>
+                            
+                            <p class="text-muted mt-2">Modelo: ${sensor.modelo}</p>
+                            <span class="badge ${sensor.activo ? 'bg-success' : 'bg-secondary'}">
+                                ${sensor.activo ? 'EN LÍNEA' : 'DESCONECTADO'}
+                            </span>
+                        </div>
+                    </div>
+                `;
+                contenedor.innerHTML += htmlTarjeta;
+                setTimeout(() => {
+                    var options = {
+                        series: [valor], 
+                        chart: { type: 'radialBar', height: 280 },
+                        plotOptions: {
+                            radialBar: {
+                                hollow: { size: '65%' },
+                                track: { background: '#f0f0f0'},
+                                dataLabels: {
+                                    show: true,
+                                    name: { show: false },
+                                    value: {
+                                        fontSize: '30px', show: true, fontWeight: 'bold',
+                                        formatter: function (val) { return val } 
+                                    }
+                                }
+                            }
+                        },
+                        fill: { colors: [colorGrafica] }, 
+                        stroke: { lineCap: 'round' },
+                        labels: ['Valor'],
+                    };
+                    var chart = new ApexCharts(document.querySelector("#" + divId), options);
+                    chart.render();
+                }, 100);
+            });
+
+        } catch (error) {
+            console.error(error);
+            document.getElementById('contenedor-graficas').innerHTML = 
+                '<div class="alert alert-danger">Error cargando datos. Revisa si iniciaste sesión o si la API es pública.</div>';
+        }
+    }
+    cargarDashboard();
+</script>
+
+</body>
+</html>
