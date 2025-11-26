@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
+from aplicacion.views import registro  
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html'), name='home'),
+    path('registro/', registro, name='registro'),
     path('admin/', admin.site.urls),
     path('rest/', include('aplicacion.urls')),
     
