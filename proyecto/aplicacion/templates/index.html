@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Dashboard IOT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4f6f9; }
+        .card-sensor { border-left: 5px solid #007bff; transition: transform 0.2s; }
+        .card-sensor:hover { transform: translateY(-5px); }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">🚀 Monitor de Sensores</h1>
+        
+        <div class="row" id="contenedor-sensores">
+            <div class="col-12 text-center">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p>Cargando datos de la nube...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const URL_NUBE = 'https://liliangb.pythonanywhere.com/rest/sensores/';
+
+        fetch(URL_NUBE)
+            .then(response => response.json())
+            .then(data => {
+                const contenedor = document.getElementById('contenedor-sensores');
+                contenedor.innerHTML = ''; // Limpiamos el cargando
+
+                data.forEach(sensor => {
+                    const tarjeta = `
+                        <div class="col-md-4 mb-3">
+                            <div class="card shadow-sm card-sensor">
+                                <div class="card-body">
+                                    <h5 class="card-title">${sensor.nombre}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">${sensor.serial}</h6>
+                                    <p class="card-text">Modelo: ${sensor.modelo}</p>
+                                    <span class="badge ${sensor.activo ? 'bg-success' : 'bg-danger'}">
+                                        ${sensor.activo ? 'ACTIVO' : 'INACTIVO'}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    contenedor.innerHTML += tarjeta;
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('contenedor-sensores').innerHTML = 
+                '<div class="alert alert-danger">Error al conectar con la nube. Revisa la consola (F12).</div>';
+            });
+    </script>
+</body>
+</html>
