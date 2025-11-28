@@ -24,3 +24,8 @@ class MedicionSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"serial_sensor": f"El sensor con serial '{serial}' no existe."})
         medicion = Medicion.objects.create(sensor=sensor_obj, **validated_data)
         return medicion
+    
+class ArduinoDataSerializer(serializers.Serializer):
+    serial = serializers.CharField(max_length=50)
+    valor = serializers.FloatField()
+    fecha_hora = serializers.DateTimeField(required=False)
