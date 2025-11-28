@@ -111,9 +111,10 @@
                 if (valor < 24) {
                     claseCalefaccion = 'active'; 
                     estadoTexto = 'Calefacción ACTIVA';
-                } else if (valor > 26) {
-                    claseAire = 'active'; 
-                    estadoTexto = 'Aire Acond. ACTIVO';
+                } if (valor >= 26) { 
+    claseAire = 'active'; 
+    estadoTexto = 'Aire Acond. ACTIVO';
+    claseCalefaccion = ''; 
 }
 
                 const divId = `chart-${index}`;
@@ -180,7 +181,7 @@
     }
 
     cargarDashboard();
-    setInterval(cargarDashboard, 10000);
+    setInterval(cargarDashboard, 5000);
 
 </script>
 
