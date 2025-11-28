@@ -101,14 +101,14 @@
 
             sensores.forEach((sensor, index) => {
                 const medicionesDelSensor = mediciones.filter(m => m.sensor == sensor.id || (m.sensor.toString().includes(sensor.id)));
-                const ultimaMedicion = medicionesDelSensor.pop(); 
+                const ultimaMedicion = medicionesDelSensor[0]; 
                 const valor = ultimaMedicion ? parseFloat(ultimaMedicion.valor) : 0;
 
                 let claseCalefaccion = '';
                 let claseAire = '';
                 let estadoTexto = 'Temperatura Ideal';
 
-                if (valor < 20) {
+                if (valor < 15) {
                     claseCalefaccion = 'active'; 
                     estadoTexto = 'Calefacción ACTIVA';
                 } else if (valor > 28) {
