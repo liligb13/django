@@ -104,18 +104,20 @@
                 const ultimaMedicion = medicionesDelSensor[medicionesDelSensor.length - 1]; 
                 const valor = ultimaMedicion ? parseFloat(String(ultimaMedicion.valor).trim()) : 0;
 
-                let claseCalefaccion = '';
-                let claseAire = '';
-                let estadoTexto = 'Temperatura Ideal';
+            console.log(`Valor de la medición: ${valor}. ¿Es >= 26.0? ${valor >= 26.0}`); 
 
-                if (valor < 24.0) {
-                    claseCalefaccion = 'active'; 
-                    estadoTexto = 'Calefacción ACTIVA';
-                }
-                else if (valor > 26.0) { 
-                    claseAire = 'active'; 
-                    estadoTexto = 'Aire Acond. ACTIVO';
-                }
+            let claseCalefaccion = '';
+            let claseAire = '';
+            let estadoTexto = 'Temperatura Ideal';
+
+            if (valor < 24.0) {
+                claseCalefaccion = 'active'; 
+                estadoTexto = 'Calefacción ACTIVA';
+} 
+            else if (valor >= 26.0) { 
+                claseAire = 'active'; 
+                estadoTexto = 'Aire Acond. ACTIVO';
+}
 
                 const divId = `chart-${index}`;
                 
