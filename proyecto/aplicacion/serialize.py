@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from aplicacion.models import Sensor,Medicion
+from aplicacion.models import Sensor, Medicion
+from django.utils import timezone
 
 class SensorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -7,8 +8,8 @@ class SensorSerializer(serializers.ModelSerializer):
         fields = '__all__'
         
 class MedicionSerializer(serializers.ModelSerializer):
-    serial_sensor = serializers.CharField(write_only=True)
-    sensor = SensorSerializer(read_only=True) 
+    serial_sensor = serializers.CharField(write_only=True, required=False)
+    sensor = SensorSerializer(read_only=True)
 
     class Meta:
         model = Medicion
@@ -30,11 +31,15 @@ class ArduinoDataSerializer(serializers.Serializer):
 
     Expected payload example:
         {
-            "serial": "ABC123456789",
-            "valor": 12.34,
-            "fecha_hora": "2025-11-27T10:12:00Z"  # optional
+            "serial": "ARDUINO1",
+            "valor": 24.5,  # Temperatura en grados Celsius
+            "fecha_hora": "2025-11-30T23:47:00-07:00"  # opcional
         }
     """
-    serial = serializers.CharField(max_length=50)
+    serial = serializers.CharField(max_length=50, default='ARDUINO1')
     valor = serializers.FloatField()
-    fecha_hora = serializers.DateTimeField(required=False)
+    fecha_hora = serializers.DateTimeField(required=False, default=timezone.now)
+    
+    def validate_serial(self, value):
+        # Aceptamos cualquier serial, no forzamos el formato estricto
+        return value
