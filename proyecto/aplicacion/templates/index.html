@@ -100,11 +100,13 @@
             }
 
             sensores.forEach((sensor, index) => {
-                const medicionesDelSensor = mediciones.filter(m => m.sensor.id === sensor.id);
-                const ultimaMedicion = medicionesDelSensor[medicionesDelSensor.length - 1]; 
-                const valor = ultimaMedicion ? parseFloat(String(ultimaMedicion.valor).trim()) : 0;
-
-            console.log(`Valor de la medición: ${valor}. ¿Es >= 26.0? ${valor >= 26.0}`); 
+                medicionesDelSensor.sort((a, b) => {
+        return new Date(b.fecha_hora) - new Date(a.fecha_hora);
+    });
+    const ultimaMedicion = medicionesDelSensor[0]; 
+    const valor = ultimaMedicion 
+        ? parseFloat(String(ultimaMedicion.valor).trim()) 
+        : 0;
 
             let claseCalefaccion = '';
             let claseAire = '';
