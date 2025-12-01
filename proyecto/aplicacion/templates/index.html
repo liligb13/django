@@ -100,24 +100,21 @@
             }
 
             sensores.forEach((sensor, index) => {
-                medicionesDelSensor.sort((a, b) => {
-        return new Date(b.fecha_hora) - new Date(a.fecha_hora);
-    });
-    const ultimaMedicion = medicionesDelSensor[0]; 
-    const valor = ultimaMedicion ? Number(String(ultimaMedicion.valor).trim())  0;
+                const medicionesDelSensor = mediciones.filter(m => m.sensor == sensor.id || (m.sensor.toString().includes(sensor.id)));
+                const ultimaMedicion = medicionesDelSensor.pop(); 
+                const valor = ultimaMedicion ? parseFloat(ultimaMedicion.valor) : 0;
 
-            let claseCalefaccion = '';
-            let claseAire = '';
-            let estadoTexto = 'Temperatura Ideal';
+                let claseCalefaccion = '';
+                let claseAire = '';
+                let estadoTexto = 'Temperatura Ideal';
 
-            if (valor < 24.0) {
-                claseCalefaccion = 'active'; 
-                estadoTexto = 'Calefacción ACTIVA';
-} 
-            else if (valor > 26.0) { 
-                claseAire = 'active'; 
-                estadoTexto = 'Aire Acond. ACTIVO';
-}
+                if (valor < 20) {
+                    claseCalefaccion = 'active'; 
+                    estadoTexto = 'Calefacción ACTIVA';
+                } else if (valor > 28) {
+                    claseAire = 'active'; 
+                    estadoTexto = 'Aire Acond. ACTIVO';
+                }
 
                 const divId = `chart-${index}`;
                 
@@ -183,7 +180,7 @@
     }
 
     cargarDashboard();
-    setInterval(cargarDashboard, 5000);
+    setInterval(cargarDashboard, 10000);
 
 </script>
 
