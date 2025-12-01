@@ -35,18 +35,9 @@ class Sensor(models.Model):
 
 
 class Medicion(models.Model):
-    TEMPERATURA = 'T'
-    HUMEDAD = 'H'
-    TIPO_CHOICES = [
-        (TEMPERATURA, 'Temperatura'),
-        (HUMEDAD, 'Humedad'),
-    ]
-    
     sensor = models.ForeignKey('Sensor', on_delete=models.PROTECT, related_name='mediciones_sensor')
     fecha_hora = models.DateTimeField(default=timezone.now, editable=False)
-    valor = models.FloatField()
-    tipo = models.CharField(max_length=1, choices=TIPO_CHOICES, default=TEMPERATURA)
+    valor=models.FloatField()
     
     def __str__(self):
-        tipo_str = dict(self.TIPO_CHOICES).get(self.tipo, 'Desconocido')
-        return f"{self.sensor.serial} - {tipo_str} - {self.valor} - {self.fecha_hora}"
+        return f"{self.sensor.serial} - {self.fecha_hora} - {self.valor}"

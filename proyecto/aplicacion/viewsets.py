@@ -7,5 +7,5 @@ class SensorViewSet(viewsets.ModelViewSet):
     serializer_class = SensorSerializer 
     
 class MedicionViewSet(viewsets.ModelViewSet):
-    queryset = Medicion.objects.all()
+    queryset = Medicion.objects.all().order_by('-fecha_hora')
     serializer_class = MedicionSerializer

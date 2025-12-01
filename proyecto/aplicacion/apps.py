@@ -28,5 +28,4 @@ class AplicacionConfig(AppConfig):
                     activo=True,
                 )
         except (OperationalError, ProgrammingError):
-            # Database not ready yet (e.g., during migrations) — skip quietly
             pass
