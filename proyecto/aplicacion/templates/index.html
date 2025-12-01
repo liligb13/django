@@ -37,25 +37,18 @@
             background-color: #f8fafc;
             border-radius: 10px;
         }
-.indicator {
-    opacity: 0.2; 
-    transition: 0.3s;
-}
-.indicator.active {
-    font-weight: bold;
-    transform: scale(1.1);
-}
-
-
-.indicator.active .icon-cool {
-    opacity: 1 !important;
-    color: #3b82f6 !important; 
-}
-
-.indicator.active span {
-    opacity: 1 !important;
-    font-weight: bold !important;
-}
+        .indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.2; 
+            transition: 0.3s;
+        }
+        .indicator.active {
+            opacity: 1; 
+            font-weight: bold;
+            transform: scale(1.1);
+        }
         .icon-heat { color: #ef4444; font-size: 1.5rem; }
         .icon-cool { color: #3b82f6; font-size: 1.5rem; }
     </style>
@@ -119,11 +112,11 @@
             let claseAire = '';
             let estadoTexto = 'Temperatura Ideal';
 
-            if (valor < 25.0) {
+            if (valor < 24.0) {
                 claseCalefaccion = 'active'; 
                 estadoTexto = 'Calefacción ACTIVA';
 } 
-            else if (valor > 25.0) { 
+            else if (valor > 26.0) { 
                 claseAire = 'active'; 
                 estadoTexto = 'Aire Acond. ACTIVO';
 }
