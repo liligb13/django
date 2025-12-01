@@ -101,9 +101,9 @@
 
             sensores.forEach((sensor, index) => {
             const medicionesDelSensor = mediciones.filter(m => m.sensor.id === sensor.id);
-            const medicionesDelSensor = mediciones.filter(m => m.sensor.id === sensor.id);
 const ultimaMedicion = medicionesDelSensor[0];
 const valor = ultimaMedicion ? parseFloat(ultimaMedicion.valor) : 0;
+
                 let claseCalefaccion = '';
                 let claseAire = '';
                 let estadoTexto = 'Temperatura Ideal';
