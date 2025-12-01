@@ -18,6 +18,7 @@ import argparse
 import json
 import logging
 import time
+
 import requests
 import serial
 from serial.serialutil import SerialException
