@@ -104,9 +104,7 @@
         return new Date(b.fecha_hora) - new Date(a.fecha_hora);
     });
     const ultimaMedicion = medicionesDelSensor[0]; 
-    const valor = ultimaMedicion 
-        ? parseFloat(String(ultimaMedicion.valor).trim()) 
-        : 0;
+    const valor = ultimaMedicion ? Number(String(ultimaMedicion.valor).trim())  0;
 
             let claseCalefaccion = '';
             let claseAire = '';
