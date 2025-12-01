@@ -28,3 +28,16 @@ ENV/ [cite: 259]
 # ...
 # ...
 # End of https://www.gitignore.io/api/python, vagrant [cite: 281]
+
+# Ignorar bases de datos SQLite
+*.sqlite3
+*.db
+db.sqlite3
+
+# Ignorar archivos de Python
+__pycache__/
+*.pyc
+
+# Ignorar carpetas de entorno virtual
+venv/
+.venv/
