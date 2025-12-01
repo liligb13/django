@@ -1,166 +1,124 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Principal</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
-    />
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
     <style>
-      body {
-        background-color: #f3f4f6;
-        font-family: "Segoe UI", sans-serif;
-      }
-      .sidebar {
-        min-height: 100vh;
-        background-color: #1e293b;
-        color: white;
-        padding-top: 20px;
-      }
-      .sidebar h3 {
-        font-size: 1.2rem;
-        padding-left: 20px;
-        margin-bottom: 30px;
-        font-weight: bold;
-        color: #fff;
-      }
-      .menu-item {
-        padding: 15px 20px;
-        color: #94a3b8;
-        display: block;
-        text-decoration: none;
-        border-left: 4px solid transparent;
-        transition: 0.3s;
-      }
-      .menu-item:hover,
-      .menu-item.active {
-        background-color: #0f172a;
-        color: white;
-        border-left: 4px solid #3b82f6;
-      }
-
-      .card-dashboard {
-        background: white;
-        border-radius: 15px;
-        border: none;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        padding: 20px;
-        margin-bottom: 20px;
-        text-align: center;
-      }
-
-      .status-box {
-        display: flex;
-        justify-content: space-around;
-        margin-top: 15px;
-        padding: 10px;
-        background-color: #f8fafc;
-        border-radius: 10px;
-      }
-      .indicator {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        opacity: 0.2;
-        transition: 0.3s;
-      }
-      .indicator.active {
-        opacity: 1;
-        font-weight: bold;
-        transform: scale(1.1);
-      }
-      .icon-heat {
-        color: #ef4444;
-        font-size: 1.5rem;
-      }
-      .icon-cool {
-        color: #3b82f6;
-        font-size: 1.5rem;
-      }
+        body { background-color: #f3f4f6; font-family: 'Segoe UI', sans-serif; }
+        .sidebar {
+            min-height: 100vh;
+            background-color: #1e293b;
+            color: white;
+            padding-top: 20px;
+        }
+        .sidebar h3 { font-size: 1.2rem; padding-left: 20px; margin-bottom: 30px; font-weight: bold; color: #fff;}
+        .menu-item { padding: 15px 20px; color: #94a3b8; display: block; text-decoration: none; border-left: 4px solid transparent; transition: 0.3s; }
+        .menu-item:hover, .menu-item.active { background-color: #0f172a; color: white; border-left: 4px solid #3b82f6; }
+        
+        .card-dashboard {
+            background: white;
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .status-box {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f8fafc;
+            border-radius: 10px;
+        }
+        .indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0.2; 
+            transition: 0.3s;
+        }
+        .indicator.active {
+            opacity: 1; 
+            font-weight: bold;
+            transform: scale(1.1);
+        }
+        .icon-heat { color: #ef4444; font-size: 1.5rem; }
+        .icon-cool { color: #3b82f6; font-size: 1.5rem; }
     </style>
-  </head>
-  <body>
-    <div class="container-fluid">
-      <div class="row">
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
         <div class="col-md-2 sidebar d-none d-md-block">
-          <h3><i class="bi bi-cpu-fill"></i> Clase</h3>
-          <a href="#" class="menu-item active"
-            ><i class="bi bi-speedometer2 me-2"></i> Tablero
-          </a>
-          <a href="/admin/" class="menu-item"
-            ><i class="bi bi-sliders me-2"></i> Configuración</a
-          >
-          <a href="/rest/" class="menu-item"
-            ><i class="bi bi-cloud-arrow-up me-2"></i> Datos</a
-          >
+            <h3><i class="bi bi-cpu-fill"></i> Clase</h3>
+            <a href="#" class="menu-item active"><i class="bi bi-speedometer2 me-2"></i> Tablero </a>
+            <a href="/admin/" class="menu-item"><i class="bi bi-sliders me-2"></i> Configuración</a>
+            <a href="/rest/" class="menu-item"><i class="bi bi-cloud-arrow-up me-2"></i> Datos</a>
         </div>
 
         <div class="col-md-10 p-4">
-          <h2 class="mb-4">Monitor</h2>
-          <div class="row" id="contenedor-graficas">
-            <div class="col-12 text-center mt-5">
-              <div class="spinner-border text-primary" role="status"></div>
-              <p class="mt-2">Sincronizando con Arduino</p>
+            <h2 class="mb-4">Monitor</h2>
+            <div class="row" id="contenedor-graficas">
+                <div class="col-12 text-center mt-5">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <p class="mt-2">Sincronizando con Arduino</p>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
-    <script>
-      const URL_SENSORES = "https://liliangb.pythonanywhere.com/rest/sensores/";
-      const URL_MEDICIONES =
-        "https://liliangb.pythonanywhere.com/rest/mediciones/";
+<script>
+    const URL_SENSORES = 'https://liliangb.pythonanywhere.com/rest/sensores/';
+    const URL_MEDICIONES = 'https://liliangb.pythonanywhere.com/rest/mediciones/';
 
-      async function cargarDashboard() {
+    async function cargarDashboard() {
         try {
-          const [resSensores, resMediciones] = await Promise.all([
-            fetch(URL_SENSORES),
-            fetch(URL_MEDICIONES),
-          ]);
-          const sensores = await resSensores.json();
-          const mediciones = await resMediciones.json();
+            const [resSensores, resMediciones] = await Promise.all([
+                fetch(URL_SENSORES),
+                fetch(URL_MEDICIONES)
+            ]);
+            const sensores = await resSensores.json();
+            const mediciones = await resMediciones.json();
+            
+            const contenedor = document.getElementById('contenedor-graficas');
+            contenedor.innerHTML = '';
 
-          const contenedor = document.getElementById("contenedor-graficas");
-          contenedor.innerHTML = "";
-
-          if (sensores.length === 0) {
-            contenedor.innerHTML =
-              '<div class="alert alert-warning">No hay sensores.</div>';
-            return;
-          }
-
-          sensores.forEach((sensor, index) => {
-            const medicionesDelSensor = mediciones.filter(
-              (m) => m.sensor.id === sensor.id
-            );
-            const ultimaMedicion = medicionesDelSensor[0];
-            const valor = ultimaMedicion ? parseFloat(ultimaMedicion.valor) : 0;
-
-            let claseCalefaccion = "";
-            let claseAire = "";
-            let estadoTexto = "Temperatura Ideal";
-
-            if (valor < 24) {
-              claseCalefaccion = "active";
-              estadoTexto = "Calefacción ACTIVA";
-            } else if (valor > 26) {
-              claseAire = "active";
-              estadoTexto = "Aire Acond. ACTIVO";
+            if (sensores.length === 0) {
+                contenedor.innerHTML = '<div class="alert alert-warning">No hay sensores.</div>';
+                return;
             }
 
-            const divId = `chart-${index}`;
+            sensores.forEach((sensor, index) => {
+                const medicionesDelSensor = mediciones.filter(m => m.sensor.id === sensor.id);
+                const ultimaMedicion = medicionesDelSensor[0];
+                const valor = ultimaMedicion ? parseFloat(ultimaMedicion.valor) : 0;
 
-            const htmlTarjeta = `
+                let claseCalefaccion = '';
+                let claseAire = '';
+                let estadoTexto = 'Temperatura Ideal';
+
+                if (valor < 24) {
+                    claseCalefaccion = 'active'; 
+                    estadoTexto = 'Calefacción ACTIVA';
+                } else if (valor > 26) {
+                    claseAire = 'active'; 
+                    estadoTexto = 'Aire Acond. ACTIVO';
+                }
+
+                const divId = `chart-${index}`;
+                
+                const htmlTarjeta = `
                     <div class="col-md-6 col-lg-4">
                         <div class="card-dashboard">
                             <h5 class="card-title text-uppercase">${sensor.nombre}</h5>
@@ -185,56 +143,46 @@
                         </div>
                     </div>
                 `;
-            contenedor.innerHTML += htmlTarjeta;
+                contenedor.innerHTML += htmlTarjeta;
 
-            const valor_porcentaje = (valor / 40) * 100;
-
-            setTimeout(() => {
-            var options = {
-                series: [valor_porcentaje],
-                chart: { type: "radialBar", height: 280 },
-                plotOptions: {
-                radialBar: {
-                    startAngle: -135,
-                    endAngle: 135,
-                    hollow: { size: "60%" },
-                    dataLabels: {
-                    value: {
-                        fontSize: "30px",
-                        fontWeight: "bold",
-
-                        formatter: function (val) {
-                        return valor.toFixed(1) + "°C";
+                setTimeout(() => {
+                    var options = {
+                        series: [valor],
+                        chart: { type: 'radialBar', height: 280 },
+                        plotOptions: {
+                            radialBar: {
+                                startAngle: -135, endAngle: 135,
+                                hollow: { size: '60%' },
+                                dataLabels: {
+                                    value: { fontSize: '30px', fontWeight: 'bold', formatter: function(val) { return val + "°C"; } }
+                                }
+                            }
                         },
-                    },
-                    },
-                },
-                },
-                fill: {
-                type: "gradient",
-                gradient: {
-                    shade: "dark",
-                    type: "horizontal",
-                    gradientToColors: ["#ef4444"],
-                    stops: [0, 100],
-                },
-                },
-                colors: ["#3b82f6"],
-                labels: ["Temp"],
-            };
-            new ApexCharts(
-                document.querySelector("#" + divId),
-                options
-            ).render();
-            }, 100);
-        });
+                        fill: {
+                            type: 'gradient',
+                            gradient: {
+                                shade: 'dark',
+                                type: 'horizontal',
+                                gradientToColors: ['#ef4444'], 
+                                stops: [0, 100]
+                            }
+                        },
+                        colors: ['#3b82f6'],
+                        labels: ['Temp'],
+                    };
+                    new ApexCharts(document.querySelector("#" + divId), options).render();
+                }, 100);
+            });
+
         } catch (error) {
-        console.error(error);
+            console.error(error);
         }
     }
 
     cargarDashboard();
     setInterval(cargarDashboard, 5000);
-    </script>
+
+</script>
+
 </body>
 </html>
