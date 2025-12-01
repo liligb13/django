@@ -37,11 +37,14 @@ class Sensor(models.Model):
 class Medicion(models.Model):
     sensor = models.ForeignKey('Sensor', on_delete=models.PROTECT, related_name='mediciones_sensor')
     fecha_hora = models.DateTimeField(default=timezone.now, editable=False)
-    valor = models.FloatField()
+    # valor = models.FloatField()
+temperatura = models.FloatField(verbose_name="Temperatura")
+humedad = models.FloatField(verbose_name="Humedad")
     
-    class Meta:
+    # ✅ Indentación correcta: la clase Meta DEBE estar dentro de Medicion
+class Meta:
         ordering = ['-fecha_hora']
     
-    def __str__(self):
-        return f"{self.sensor.serial} - {self.valor}°C - {self.fecha_hora.strftime('%Y-%m-%d %H:%M')}"
-
+    # ✅ Indentación correcta: __str__ DEBE estar dentro de Medicion
+def __str__(self):
+        return f"{self.sensor.serial} - Temp: {self.temperatura}°C / Hum: {self.humedad}% - {self.fecha_hora.strftime('%Y-%m-%d %H:%M')}"
